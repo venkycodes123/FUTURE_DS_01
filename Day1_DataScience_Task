@@ -1,0 +1,15 @@
+import pandas as pd
+
+# Load CSV file
+data = pd.read_csv('student_data.csv')
+
+# Display dataset
+print("Student Dataset:")
+print(data)
+
+# Basic analysis
+print("\nAverage Marks:")
+print(data['Marks'].mean())
+
+print("\nHighest Marks:")
+print(data['Marks'].max())
