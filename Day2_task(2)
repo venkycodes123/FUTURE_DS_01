@@ -1,0 +1,7 @@
+plt.plot(data['Name'], data['Marks'])
+
+plt.xlabel('Student Names')
+plt.ylabel('Marks')
+plt.title('Line Chart of Student Marks')
+
+plt.show()
