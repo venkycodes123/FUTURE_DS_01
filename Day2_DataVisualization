@@ -1,0 +1,19 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Load dataset
+data = pd.read_csv('/content/student_data.csv')
+
+# Display dataset
+print(data)
+
+# Bar Chart
+plt.bar(data['Name'], data['Marks'])
+
+# Labels
+plt.xlabel('Student Names')
+plt.ylabel('Marks')
+plt.title('Student Marks Analysis')
+
+# Show chart
+plt.show()
