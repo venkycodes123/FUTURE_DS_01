@@ -1,0 +1,36 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+
+data = pd.read_csv("sales_data.csv")
+
+data["Total_Sales"] = data["Quantity"] * data["Price"]
+
+print("Total Orders:", len(data))
+print("Total Revenue:", data["Total_Sales"].sum())
+print("Average Revenue:", data["Total_Sales"].mean())
+print("Highest Sale:", data["Total_Sales"].max())
+
+product_sales = data.groupby("Product")["Total_Sales"].sum()
+print("\nProduct Wise Revenue")
+print(product_sales)
+
+print("\nBest Selling Product:", product_sales.idxmax())
+
+month_sales = data.groupby("Month")["Total_Sales"].sum()
+print("\nMonth Wise Revenue")
+print(month_sales)
+
+product_sales.plot(kind="bar")
+plt.title("Product Wise Revenue")
+plt.xlabel("Product")
+plt.ylabel("Revenue")
+plt.show()
+
+month_sales.plot(kind="pie", autopct="%1.1f%%")
+plt.title("Month Wise Revenue Share")
+plt.ylabel("")
+plt.show()
+
+data.to_csv("processed_sales_data.csv", index=False)
+
+print("\nprocessed_sales_data.csv saved successfully")
