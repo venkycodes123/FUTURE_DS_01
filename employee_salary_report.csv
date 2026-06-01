@@ -1,0 +1,47 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+
+data = pd.read_csv("employee_salary_data.csv")
+
+print("Total Employees:", len(data))
+print("Average Salary:", data["Salary"].mean())
+print("Highest Salary:", data["Salary"].max())
+print("Lowest Salary:", data["Salary"].min())
+
+dept_avg = data.groupby("Department")["Salary"].mean()
+dept_total = data.groupby("Department")["Salary"].sum()
+
+print("\nAverage Salary by Department")
+print(dept_avg)
+
+print("\nTotal Salary by Department")
+print(dept_total)
+
+max_exp = data.loc[data["Experience"].idxmax()]
+min_exp = data.loc[data["Experience"].idxmin()]
+
+print("\nMost Experienced Employee")
+print(max_exp)
+
+print("\nLeast Experienced Employee")
+print(min_exp)
+
+dept_avg.plot(kind="bar")
+plt.title("Average Salary by Department")
+plt.xlabel("Department")
+plt.ylabel("Salary")
+plt.show()
+
+dept_total.plot(kind="pie", autopct="%1.1f%%")
+plt.title("Department Salary Distribution")
+plt.ylabel("")
+plt.show()
+
+data["Salary"].plot(kind="hist", bins=5)
+plt.title("Salary Distribution")
+plt.xlabel("Salary")
+plt.show()
+
+data.to_csv("employee_salary_report.csv", index=False)
+
+print("employee_salary_report.csv saved successfully")
