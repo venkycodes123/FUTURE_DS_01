@@ -1,0 +1,44 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+
+data = pd.read_csv("customer_purchase_data.csv")
+
+data["Total_Purchase"] = data["Quantity"] * data["Price"]
+
+print("Total Revenue:", data["Total_Purchase"].sum())
+print("Average Purchase:", data["Total_Purchase"].mean())
+print("Highest Purchase:", data["Total_Purchase"].max())
+print("Lowest Purchase:", data["Total_Purchase"].min())
+
+customer_sales = data.groupby("CustomerName")["Total_Purchase"].sum()
+print("\nCustomer Wise Purchase")
+print(customer_sales)
+
+product_sales = data.groupby("Product")["Total_Purchase"].sum()
+print("\nProduct Wise Revenue")
+print(product_sales)
+
+month_sales = data.groupby("Month")["Total_Purchase"].sum()
+print("\nMonth Wise Revenue")
+print(month_sales)
+
+customer_sales.plot(kind="bar")
+plt.title("Customer Wise Purchase")
+plt.xlabel("Customer")
+plt.ylabel("Amount")
+plt.show()
+
+month_sales.plot(kind="line", marker="o")
+plt.title("Monthly Revenue")
+plt.xlabel("Month")
+plt.ylabel("Revenue")
+plt.show()
+
+product_sales.plot(kind="pie", autopct="%1.1f%%")
+plt.title("Product Revenue Distribution")
+plt.ylabel("")
+plt.show()
+
+data.to_csv("customer_purchase_report.csv", index=False)
+
+print("customer_purchase_report.csv saved successfully")
