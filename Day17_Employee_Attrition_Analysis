@@ -1,0 +1,29 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+
+data = pd.read_csv("employee_attrition.csv")
+
+print("Total Employees:", len(data))
+
+attrition_count = data["Attrition"].value_counts()
+print(attrition_count)
+
+attrition_count.plot(kind="bar")
+plt.title("Employee Attrition")
+plt.xlabel("Attrition")
+plt.ylabel("Count")
+plt.show()
+
+dept_attrition = pd.crosstab(data["Department"], data["Attrition"])
+print(dept_attrition)
+
+dept_attrition.plot(kind="bar")
+plt.title("Department Wise Attrition")
+plt.ylabel("Employees")
+plt.show()
+
+avg_income = data.groupby("Attrition")["Monthly_Income"].mean()
+print(avg_income)
+
+avg_satisfaction = data.groupby("Attrition")["Job_Satisfaction"].mean()
+print(avg_satisfaction)
